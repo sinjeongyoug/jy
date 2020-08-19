@@ -20,7 +20,7 @@ public class ArticleService {
 	}
 
 	public Article getForPrintArticlesById(int id) {
-		Article article = articleDao.getForPrintArticles(id);
+		Article article = articleDao.getForPrintArticleById(id);
 		
 		return article;
 	}

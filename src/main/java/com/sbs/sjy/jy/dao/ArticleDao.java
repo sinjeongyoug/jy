@@ -11,6 +11,6 @@ import com.sbs.sjy.jy.dto.Article;
 public interface ArticleDao {
 	List<Article> getForPrintArticles();
 
-	Article getForPrintArticles(@Param("id") int id);
+	Article getForPrintArticleById(@Param("id") int id);
 	
 }
