@@ -28,5 +28,7 @@
 
 </head>
 <body>
+
+<title>${logoText}-${pageTitle}</title>
 	<div class="outer-box">
 		<h1 class="page-page con">${pageTitle}</h1>
