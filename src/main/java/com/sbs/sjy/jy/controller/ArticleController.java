@@ -17,7 +17,7 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 	
-	@RequestMapping("/article/list")
+	@RequestMapping("/usr/article/list")
 	public String showList(Model model) {
 		List<Article> articles = articleService.getForPrintArticles();
 
@@ -26,7 +26,7 @@ public class ArticleController {
 		return "article/list";
 	}
 	
-	@RequestMapping("/article/detail")
+	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, @RequestParam Map<String, Object> param) {
 		int id = Integer.parseInt((String)param.get("id"));
 		
@@ -37,12 +37,12 @@ public class ArticleController {
 		return "article/detail";
 	}
 	
-	@RequestMapping("/article/write")
+	@RequestMapping("/usr//article/write")
 	public String showWrite() {
 		return "article/write";
 	}
 
-	@RequestMapping("/article/doWrite")
+	@RequestMapping("/usr/article/doWrite")
 	public String doWrite(@RequestParam Map<String, Object> param) {
 		int newArticleId = articleService.write(param);
 

@@ -12,3 +12,5 @@ spring:
     password: 
 mybatis:
   type-aliases-package: com.sbs.sjy.jy.dto
+custom:
+  logoText: "wallpaper"
