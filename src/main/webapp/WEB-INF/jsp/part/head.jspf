@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${logoText} - ${pageTitle}</title>
+<title>${logoText}-${pageTitle}</title>
 
 <!-- 구글 폰트 불러오기 -->
 <!-- rotobo(400/700/900), notosanskr(400/600/900) -->
@@ -25,10 +25,11 @@
 <!-- 공통 JS -->
 <script src="/resource/common.js"></script>
 
+<script>
+var param = ${paramJson};
+</script>
 
 </head>
 <body>
-
-<title>${logoText}-${pageTitle}</title>
 	<div class="outer-box">
-		<h1 class="page-page con">${pageTitle}</h1>
+		<h1 class="page-title-box con">${pageTitle}</h1>
