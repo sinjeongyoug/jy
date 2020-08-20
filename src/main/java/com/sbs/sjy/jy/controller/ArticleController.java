@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.sjy.jy.dto.Article;
 import com.sbs.sjy.jy.dto.ArticleReply;
+import com.sbs.sjy.jy.dto.Member;
 import com.sbs.sjy.jy.dto.ResultData;
 import com.sbs.sjy.jy.service.ArticleService;
 
@@ -69,14 +70,25 @@ public class ArticleController {
 		return new ResultData("S-1", String.format("%d번 댓글이 생성되었습니다.", newArticleReplyId), rsDataBody);
 	}
 	
+	//  삭제 기능 까지 !
 	@RequestMapping("/usr/article/getForPrintArticleReplies")
 	@ResponseBody
-	public ResultData getForPrintArticleReplies(@RequestParam Map<String, Object> param) {
+	public ResultData getForPrintArticleReplies(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		Map<String, Object> rsDataBody = new HashMap<>();
 		
+		param.put("actor", loginedMember);
 		List<ArticleReply> articleReplies = articleService.getForPrintArticleReplies(param);
 		rsDataBody.put("articleReplies", articleReplies);
 
 		return new ResultData("S-1", String.format("%d개의 댓글을 불러왔습니다.", articleReplies.size()), rsDataBody);
+	}
+	
+	@RequestMapping("/usr/article/doDeleteReplyAjax")
+	@ResponseBody
+	public ResultData doDeleteReplyAjax(int id) {
+		articleService.deleteReply(id);
+		
+		return new ResultData("S-1", String.format("%d번 댓글을 삭제하였습니다.", id));
 	}
 }
