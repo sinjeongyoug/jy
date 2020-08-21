@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.sjy.jy.dao.ArticleDao;
 import com.sbs.sjy.jy.dto.Article;
-import com.sbs.sjy.jy.dto.ArticleReply;
+import com.sbs.sjy.jy.dto.Reply;
 import com.sbs.sjy.jy.dto.Member;
 import com.sbs.sjy.jy.dto.ResultData;
 import com.sbs.sjy.jy.util.Util;
@@ -43,36 +43,34 @@ public class ArticleService {
 		return Util.getAsInt(param.get("id"));
 	}
 
-	public List<ArticleReply> getForPrintArticleReplies(@RequestParam Map<String, Object> param) {
-		List<ArticleReply> articleReplies = articleDao.getForPrintArticleReplies(param);
+	public List<Reply> getForPrintReplies(@RequestParam Map<String, Object> param) {
+		List<Reply> replies = articleDao.getForPrintReplies(param);
 		
 		Member actor = (Member)param.get("actor");
 		
-		for ( ArticleReply articleReply : articleReplies ) {
+		for ( Reply reply : replies ) {
 			// 출력용 부가 데이터를 추가함.
-			updateForPrintInfo(actor , articleReply);
+			updateForPrintInfo(actor, reply);
 			
 		}
 		
-		return articleReplies;
+		return replies;
 		
 	}
 
-	private void updateForPrintInfo(Member actor, ArticleReply articleReply) {
-		articleReply.getExtra().put("actorCanDelete", actorCanDelete(actor, articleReply));
-		articleReply.getExtra().put("actorCanModify", actorCanModify(actor, articleReply));
-		
-		
+	private void updateForPrintInfo(Member actor, Reply reply) {
+		reply.getExtra().put("actorCanDelete", actorCanDelete(actor, reply));
+		reply.getExtra().put("actorCanModify", actorCanModify(actor, reply));
 	}
 	
 	//해당 댓글의 삭제를 할 수 있는 지 알려줌
-	public boolean actorCanModify(Member actor, ArticleReply articleReply) {
-		return actor != null && actor.getId() == articleReply.getMemberId() ? true : false;
+	public boolean actorCanModify(Member actor, Reply reply) {
+		return actor != null && actor.getId() == reply.getMemberId() ? true : false;
 	}
 
 	// 액터가 해당 댓글을 삭제할 수 있는지 알려준다.
-	public boolean actorCanDelete(Member actor, ArticleReply articleReply) {
-		return actorCanModify(actor, articleReply);
+	public boolean actorCanDelete(Member actor, Reply reply) {
+		return actorCanModify(actor, reply);
 	}
 
 
@@ -80,8 +78,8 @@ public class ArticleService {
 		articleDao.deleteReply(id);
 	}
 
-	public ArticleReply getForPrintArticleReplyById(int id) {
-		return articleDao.getForPrintArticleReplyById(id);
+	public Reply getForPrintReplyById(int id) {
+		return articleDao.getForPrintReplyById(id);
 	}
 
 	public ResultData modfiyReply(Map<String, Object> param) {
