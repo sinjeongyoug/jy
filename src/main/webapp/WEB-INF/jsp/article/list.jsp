@@ -32,4 +32,8 @@
 	</table>
 
 </div>
+
+<div class="btn-box con margin-top-20">
+	<a class="btn btn-primary" href="./${board.code}-write">글쓰기</a>
+</div>
 <%@ include file="../part/foot.jspf" %>
