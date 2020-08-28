@@ -12,7 +12,6 @@
 		WHERE A.displayStatus = 1
 		ORDER BY A.id DESC
 	</select>
-
 	<select id="getForPrintArticleById" resultMap="article">
 		SELECT A.*,
 		M.nickname AS extra__writer

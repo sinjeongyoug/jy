@@ -21,9 +21,58 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@RequestMapping("/usr/member/findLoginInfo")
+	public String showFindLoginInfo() {
+		return "member/findLoginInfo";
+	}
+
+	@RequestMapping("/usr/member/doFindLoginId")
+	public String doFindLoginId(String name, String email, Model model) {
+		Member member = memberService.getMemberByNameAndEmail(name, email);
+
+		if (member == null) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "해당 회원이 존재하지 않습니다.");
+			return "common/redirect";
+		}
+
+		model.addAttribute("historyBack", true);
+		model.addAttribute("msg", String.format("해당 회원의 로그인 아이디는 %s 입니다.", member.getLoginId()));
+		return "common/redirect";
+	}
+
 	@RequestMapping("/usr/member/join")
 	public String showWrite() {
 		return "member/join";
+	}
+	
+	@RequestMapping("/usr/member/doFindLoginPw")
+	public String doFindLoginPw(String loginId, String email, String redirectUri, Model model, HttpServletRequest req) {
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member == null) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "해당 회원이 존재하지 않습니다.");
+			return "common/redirect";
+		}
+
+		if (member.getEmail().equals(email) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", "이메일이 올바르지 않습니다.");
+			return "common/redirect";
+		}
+
+		ResultData sendTempLoginPwToEmailResultData = memberService.sendTempLoginPwToEmail(member);
+
+		if (sendTempLoginPwToEmailResultData.isFail()) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("msg", sendTempLoginPwToEmailResultData.getMsg());
+			return "common/redirect";
+		}
+
+		model.addAttribute("redirectUri", redirectUri);
+		model.addAttribute("msg", sendTempLoginPwToEmailResultData.getMsg());
+		return "common/redirect";
 	}
 
 	@RequestMapping("/usr/member/doJoin")
@@ -83,8 +132,8 @@ public class MemberController {
 	@RequestMapping("/usr/member/doLogin")
 	public String doLogin(String loginId, String loginPwReal, String redirectUri, Model model, HttpSession session) {
 		String loginPw = loginPwReal;
-		
 		Member member = memberService.getMemberByLoginId(loginId);
+
 		if (member == null) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("msg", "존재하지 않는 회원입니다.");

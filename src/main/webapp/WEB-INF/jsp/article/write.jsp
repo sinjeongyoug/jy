@@ -121,7 +121,7 @@
 https://www.youtube.com/watch?v=LmgWxezH7cc(동영상 주소)
 ```
                         </script>
-						<div data-relTypeCode="artile" data-relId="0" class="toast-editor input-body"></div>
+						<div data-relTypeCode="article" data-relId="0" class="toast-editor input-body"></div>
 					</div>
 				</td>
 			</tr>

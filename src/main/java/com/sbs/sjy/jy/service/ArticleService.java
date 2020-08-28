@@ -138,9 +138,11 @@ public class ArticleService {
 				fileService.changeRelId(fileId, id);
 			}
 		}
+		
 	}
 
 	public Board getBoardByCode(String boardCode) {
 		return articleDao.getBoardByCode(boardCode);
 	}
+	
 }

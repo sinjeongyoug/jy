@@ -39,6 +39,7 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/{boardCode}-detail")
 	public String showDetail(Model model, @RequestParam Map<String, Object> param, HttpServletRequest req, @PathVariable("boardCode") String boardCode, String listUrl) {
+		
 		if ( listUrl == null ) {
 			listUrl = "./" + boardCode + "-list";
 		}
@@ -56,6 +57,7 @@ public class ArticleController {
 		model.addAttribute("article", article);
 
 		return "article/detail";
+		
 	}
 	
 	@RequestMapping("/usr/article/{boardCode}-modify")
