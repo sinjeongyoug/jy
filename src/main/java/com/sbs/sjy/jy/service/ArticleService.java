@@ -144,5 +144,10 @@ public class ArticleService {
 	public Board getBoardByCode(String boardCode) {
 		return articleDao.getBoardByCode(boardCode);
 	}
+
+	public void increaseArtuckeHit(int id) {
+		articleDao.increaseArticleHit(id);
+	}
+
 	
 }

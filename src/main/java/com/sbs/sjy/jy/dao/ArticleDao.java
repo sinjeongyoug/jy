@@ -19,9 +19,11 @@ public interface ArticleDao {
 	Article getArticleById(@Param("id") int id);
 
 	void write(Map<String, Object> param);
-
+	
 	void modify(Map<String, Object> param);
 	
 	Board getBoardByCode(String boardCode);
+
+	void increaseArticleHit(@Param("id") int id);
 
 }

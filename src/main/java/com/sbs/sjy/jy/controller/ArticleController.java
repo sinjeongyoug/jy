@@ -43,15 +43,19 @@ public class ArticleController {
 		if ( listUrl == null ) {
 			listUrl = "./" + boardCode + "-list";
 		}
+		
 		model.addAttribute("listUrl", listUrl);
 		
 		Board board = articleService.getBoardByCode(boardCode);
+		
 		model.addAttribute("board", board);
 		
 		int id = Integer.parseInt((String) param.get("id"));
 		
+		articleService.increaseArtuckeHit(id);
+		
 		Member loginedMember = (Member)req.getAttribute("loginedMember");
-
+		
 		Article article = articleService.getForPrintArticleById(loginedMember, id);
 
 		model.addAttribute("article", article);

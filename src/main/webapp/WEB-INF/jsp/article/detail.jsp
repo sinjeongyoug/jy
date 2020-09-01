@@ -25,6 +25,10 @@
 				<td>${article.forPrintTitle}</td>
 			</tr>
 			<tr>
+				<th>조회수</th>
+				<td>${article.hit}</td>
+			</tr>
+			<tr>
 				<th>내용</th>
 				<td>
 				    <script type="text/x-template">${article.body}</script>

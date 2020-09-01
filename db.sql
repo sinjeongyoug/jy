@@ -12,7 +12,8 @@ CREATE TABLE article (
 	delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 	displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     title CHAR(200) NOT NULL,
-    `body` LONGTEXT NOT NULL
+    `body` LONGTEXT NOT NULL,
+    hit INT(10) UNSIGNED DEFAULT 0 NOT NULL
 );
 
 # article 테이블에 테스트 데이터 삽입
@@ -74,7 +75,8 @@ CREATE TABLE articleReply (
     delDate DATETIME,
 	delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 	displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-    `body` LONGTEXT NOT NULL
+    `body` LONGTEXT NOT NULL,
+    hit INT(10) UNSIGNED DEFAULT 0 NOT NULL
 );
 
 # articleReply 테이블에 테스트 데이터 삽입
@@ -179,3 +181,6 @@ updateDAte = NOW(),
 
 # attr에 만료날짜 추가
 ALTER TABLE `attr` ADD COLUMN `expireDate` DATETIME NULL AFTER `value`;
+
+SELECT *
+FROM article
