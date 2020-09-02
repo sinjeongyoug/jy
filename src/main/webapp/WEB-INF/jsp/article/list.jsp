@@ -18,6 +18,8 @@
 				<th>날짜</th>
 				<th>조회수</th>
 				<th>제목</th>
+				<th>좋아요</th>
+				<th>작성자</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,15 +28,13 @@
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
 					<td>${article.hit}</td>
-					<td>
-						<a href="${article.getDetailLink(board.code)}">${article.title}</a>
-					</td>
+					<td><a href="${article.getDetailLink(board.code)}">${article.title}</a></td>
+					<td>${article.extra.likePoint}</td>
+					<td>${article.extra.writer}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-</div>
-
 <!-- 모바일 용 -->
 <div class="table-box con visible-on-sm-down">
 	<table>
@@ -49,15 +49,9 @@
 			<c:forEach items="${articles}" var="article">
 				<tr>
 					<td>${article.id}</td>
-					<td>
-						<a href="${article.getDetailLink(board.code)}">${article.title}</a>
-						<br />
-						날짜 : ${article.regDate}
-						<br />
-						작성 : ${article.extra.writer}
-						<br />
-						조회수 : ${article.hit}
-					</td>
+					<td><a href="${article.getDetailLink(board.code)}">${article.title}</a>
+						<br /> 날짜 : ${article.regDate} <br /> 작성 :
+						${article.extra.writer} <br /> 조회수 : ${article.hit}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

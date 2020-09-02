@@ -35,6 +35,15 @@
                     <div class="toast-editor toast-editor-viewer"></div>
 				</td>
 			</tr>
+			<tr>
+				<th>좋아요</th>
+				<td>
+					<span>${article.extra.likePoint}</span>
+					<a
+					href="./doLike?id=${article.id}&redirectUrl=/usr/article/free-detail?id=${article.id}"
+					onclick="if ( confirm('추천하시겠습니까?') == false ) { return false; }"><i class="far fa-thumbs-up"></i></a>
+				</td>
+			</tr>
 			<c:forEach var="i" begin="1" end="3" step="1">
 				<c:set var="fileNo" value="${String.valueOf(i)}" />
 				<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}" />

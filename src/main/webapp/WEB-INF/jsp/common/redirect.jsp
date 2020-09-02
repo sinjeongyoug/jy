@@ -15,4 +15,9 @@
 	if (redirectUri) {
 		location.replace(redirectUri);
 	}
+
+	var locationReplaceUrl = '${locationReplace}'.trim();
+	if (locationReplaceUrl) {
+		location.replace(locationReplaceUrl);
+	}
 </script>

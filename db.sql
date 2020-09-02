@@ -37,6 +37,16 @@ title = '제목3',
 `body` = '내용3',
 displayStatus = 1;
 
+# 좋아요
+CREATE TABLE `articleLike` (
+  id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  regDate DATETIME NOT NULL,
+  articleId INT(10) UNSIGNED NOT NULL,
+  memberId INT(10) UNSIGNED NOT NULL,
+  `point` TINYINT(1) UNSIGNED NOT NULL
+);
+
 # member 테이블 세팅
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -93,10 +103,12 @@ RENAME TABLE `articleReply` TO `reply`;
 
 ALTER TABLE `reply` ADD COLUMN `relTypeCode` CHAR(50) NOT NULL AFTER `memberId`,
 CHANGE `articleId` `relId` INT(10) UNSIGNED NOT NULL;
-ALTER TABLE `at`.`reply` ADD INDEX (`relId`, `relTypeCode`);
+ALTER TABLE `reply` ADD INDEX (`relId`, `relTypeCode`); 
 UPDATE reply
 SET relTypeCode = 'article'
 WHERE relTypeCode = '';
+
+
 
 /* 파일 테이블 생성 */
 CREATE TABLE `file` (
@@ -132,10 +144,13 @@ WHERE memberId = 0;
 ALTER TABLE `file` ADD UNIQUE INDEX (`relId`, `relTypeCode`, `typeCode`, `type2Code`, `fileNo`); 
 
 # 파일 테이블의 기존 인덱스에 유니크가 걸려 있어서 relId가 0 인 동안 충돌이 발생할 수 있다. 그래서 일반 인덱스로 바꾼다.
-ALTER TABLE `at`.`file` DROP INDEX `relId`, ADD INDEX (`relId` , `relTypeCode` , `typeCode` , `type2Code` , `fileNo`); 
+ALTER TABLE `jy`.`file` DROP INDEX `relId`, ADD INDEX (`relId` , `relTypeCode` , `typeCode` , `type2Code` , `fileNo`); 
 
 # 게시물 테이블에 게시판 정보 추가
-ALTER TABLE `article` ADD COLUMN `boardId` INT(10) UNSIGNED NOT NULL AFTER `delStatus`; 
+ALTER TABLE `article` ADD COLUMN `boardId` INT(10) UNSIGNED NOT NULL AFTER `delStatus`;
+
+# UNIQUE 설정을 해제
+ALTER TABLE `file` DROP INDEX `relId`;
 
 UPDATE article
 SET boardId = 1
