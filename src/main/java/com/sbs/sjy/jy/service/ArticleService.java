@@ -212,4 +212,8 @@ public class ArticleService {
 	public void increaseArtuckeHit(int id) {
 		articleDao.increaseArticleHit(id);		
 	}
+
+	public int getLikePoint(int id) {
+		return articleDao.getLikePoint(id);
+	}
 }

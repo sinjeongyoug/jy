@@ -1,5 +1,6 @@
 package com.sbs.sjy.jy.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.sjy.jy.dto.Article;
 import com.sbs.sjy.jy.dto.Board;
@@ -133,26 +135,6 @@ public class ArticleController {
 		return "redirect:" + redirectUri;
 	}
 	
-	@RequestMapping("/usr/article/doLike")
-	public String doLike(Model model, int id, String redirectUrl, HttpServletRequest request) {
-
-		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-
-		Map<String, Object> articleLikeAvailableRs = articleService.getArticleLikeAvailable(id, loginedMemberId);
-		if (((String) articleLikeAvailableRs.get("resultCode")).startsWith("F-")) {
-			model.addAttribute("alertMsg", articleLikeAvailableRs.get("msg"));
-			model.addAttribute("historyBack", true);
-			return "common/redirect";
-		}
-		Map<String, Object> rs = articleService.likeArticle(id, loginedMemberId);
-		String msg = (String) rs.get("msg");
-	
-		model.addAttribute("alertMsg", msg);
-		model.addAttribute("locationReplace", redirectUrl);
-
-		return "common/redirect";
-	}
-
 	@RequestMapping("/usr/article/doCancelLike")
 	public String doCancelLike(Model model, int id, String redirectUrl, HttpServletRequest request) {
 
@@ -166,6 +148,8 @@ public class ArticleController {
 
 			return "common/redirect";
 		}
+		
+		
 
 		Map<String, Object> rs = articleService.cancelLikeArticle(id, loginedMemberId);
 
@@ -177,4 +161,57 @@ public class ArticleController {
 		return "common/redirect";
 	}
 	
+	@RequestMapping("/usr/article/doLike")
+	public String doLike(Model model, int id, String redirectUrl, HttpServletRequest request) {
+
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+
+		Map<String, Object> articleLikeAvailableRs = articleService.getArticleLikeAvailable(id, loginedMemberId);
+		
+		if (((String) articleLikeAvailableRs.get("resultCode")).startsWith("F-")) {
+			model.addAttribute("alertMsg", articleLikeAvailableRs.get("msg"));
+			
+			model.addAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		
+		Map<String, Object> rs = articleService.likeArticle(id, loginedMemberId);
+		
+		String msg = (String) rs.get("msg");
+	
+		model.addAttribute("alertMsg", msg);
+		model.addAttribute("locationReplace", redirectUrl);
+
+		return "common/redirect";
+	}
+	
+	@RequestMapping("/usr/article/doLikeAjax")
+	@ResponseBody
+	public Map<String, Object> doLikeAjax(int id, HttpServletRequest request) {
+
+		Map<String, Object> rs = new HashMap<>();
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+
+		Map<String, Object> articleLikeAvailableRs = articleService.getArticleLikeAvailable(id, loginedMemberId);
+
+		if (((String) articleLikeAvailableRs.get("resultCode")).startsWith("F-")) {
+			rs.put("resultCode", articleLikeAvailableRs.get("resultCode"));
+			rs.put("msg", articleLikeAvailableRs.get("msg"));
+
+			return rs;
+		}
+
+		Map<String, Object> likeArticleRs = articleService.likeArticle(id, loginedMemberId);
+
+		String resultCode = (String) likeArticleRs.get("resultCode");
+		String msg = (String) likeArticleRs.get("msg");
+
+		int likePoint = articleService.getLikePoint(id);
+
+		rs.put("resultCode", resultCode);
+		rs.put("msg", msg);
+		rs.put("likePoint", likePoint);
+
+		return rs;
+	}
 }

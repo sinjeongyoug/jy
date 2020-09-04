@@ -33,4 +33,6 @@ public interface ArticleDao {
 	void likeArticle(@Param("id") int id, @Param("memberId") int memberId);
 	
 	Article getForPrintArticle(int id);
+
+	int getLikePoint(int id);
 }
