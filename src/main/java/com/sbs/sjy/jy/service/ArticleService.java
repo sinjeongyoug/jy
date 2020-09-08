@@ -216,4 +216,53 @@ public class ArticleService {
 	public int getLikePoint(int id) {
 		return articleDao.getLikePoint(id);
 	}
+
+	public int getArticlesCount(Map<String, Object> param) {
+		return articleDao.getArticlesCount(param);
+	}
+
+	public Board getBoard(String boardCode) {
+		return articleDao.getBoardByBoardCode(boardCode);
+	}
+
+	public List<Article> getForPrintArticlesByParam(Map<String, Object> param) {
+		int actorMemberId = 0;
+		
+		if ( param.containsKey("actorMemberId") ) {
+			actorMemberId = (int)param.get("actorMemberId");
+		}
+		
+		List<Article> articles = articleDao.getForPrintArticles(param);
+		
+		for (Article article : articles) {
+			updateMoreInfoForPrint(article, actorMemberId);
+		}
+
+		return articles;
+	}
+
+	private void updateMoreInfoForPrint(Article article, int actorMemberId) {
+		if (actorMemberId == 0) {
+			article.getExtra().put("loginedMemberCanLike", false);
+			article.getExtra().put("loginedMemberCanCancelLike", false);
+			return;
+		}
+		
+		int likePoint = articleDao.getLikePointByMemberId(article.getId(), actorMemberId);
+		if (likePoint == 0) {
+			article.getExtra().put("loginedMemberCanLike", true);
+			article.getExtra().put("loginedMemberCanCancelLike", false);
+		} else {
+			article.getExtra().put("loginedMemberCanLike", false);
+			article.getExtra().put("loginedMemberCanCancelLike", true);
+		}
+	}
+	
+	public List<Article> getForPrintArticles(String boardCode, int actorMemberId) {
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("boardCode", boardCode);
+		param.put("actorMemberId", actorMemberId);
+		return getForPrintArticlesByParam(param);
+	}
 }

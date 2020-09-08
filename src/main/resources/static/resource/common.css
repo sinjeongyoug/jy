@@ -35,6 +35,14 @@ label[for] {
     position: relative;
 }
 
+.margin-top-30 {
+	margin-top:30px;
+}
+
+.text-align-center {
+	text-align:center;
+}
+
 .ratio-16-9::after {
     content: "";
     display: block;

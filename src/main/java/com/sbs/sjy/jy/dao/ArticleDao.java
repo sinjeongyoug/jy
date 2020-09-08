@@ -35,4 +35,11 @@ public interface ArticleDao {
 	Article getForPrintArticle(int id);
 
 	int getLikePoint(int id);
+
+	int getArticlesCount(Map<String, Object> param);
+
+	Board getBoardByBoardCode(String boardCode);
+
+	List<Article> getForPrintArticles(Map<String, Object> param);
+	
 }
