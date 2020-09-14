@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <c:set var="pageTitle" value="배경화면" />
+
 <%@ include file="../part/head.jspf"%>
 
 <h1 class="con">알파테스트 기간입니다.(v0.01)</h1>
@@ -23,7 +25,8 @@
 		<li>- 비밀번호찾기(임시비밀번호) </li>
 		<li>- 조회수 </li>
 		<li>- 좋아요 기능 </li>
-		<li>- 검색 기능 </li>	
+		<li>- 검색 기능 </li>
+		<li>- 게시물 페이징 </li>		
 	</ul>
 </div>
 
