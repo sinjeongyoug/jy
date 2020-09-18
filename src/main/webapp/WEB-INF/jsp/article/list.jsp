@@ -12,26 +12,7 @@
 	</span>
 </div>
 
-<div class="con">
-	<form action="" name="searchForm">
-		<input type="hidden" name="boardCode" value="${param.boardCode}">
-		<input type="hidden" name="page" value="1">
-		<select name="searchType">
-			<option value="title">제목</option>
-			<option value="body">내용</option>
-			<option value="titleAndBody">제목+내용</option>
-		</select>
-		<script>
-		if ( typeof param.searchType == 'undefined' ) {
-			param.searchType = 'title';
-		}
-		
-		$('form[name="searchForm"] select[name="searchType"]').val(param.searchType);
-		</script>
-		<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요." value="${param.searchKeyword}">
-		<input type="submit" value="검색">
-	</form>
-</div>
+c
 <tr>
 </tr>
 <!-- PC용 -->

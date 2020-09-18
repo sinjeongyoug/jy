@@ -68,7 +68,7 @@ var param = ${paramJson};
 		<div class="top-bar con flex flex-ai-c flex-jc-sb visible-on-md-up">
 			<a href="/usr/home/main" class="logo img-box"> <img src="/resource/img/unnamed-1.png" alt="" />
 			</a>
-
+			
 			<nav class="menu-box-1">
 				<ul class="flex">
 					<li class="padding-0-10"><a href="/usr/home/main" class="btn btn-primary">홈</a></li>

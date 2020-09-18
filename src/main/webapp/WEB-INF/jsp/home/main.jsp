@@ -6,6 +6,22 @@
 
 <%@ include file="../part/head.jspf"%>
 
+<div class="title-container">
+  <h1 class="title"></h1>
+  <h1 class="title-down"></h1>
+</div>
+
+<fieldset class="field-container">
+  <input type="text" placeholder="Search..." class="field" />
+  <div class="icons-container">
+    <div class="icon-search"></div>
+    <div class="icon-close">
+      <div class="x-up"></div>
+      <div class="x-down"></div>
+    </div>
+  </div>
+</fieldset>
+
 <h1 class="con">알파테스트 기간입니다.(v0.01)</h1>
 
 <h2 class="con">기능 리스트</h1>
