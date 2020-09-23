@@ -242,6 +242,11 @@ label[for] {
     border-bottom: 1px solid #dfdfdf;
 }
 
+img {
+    width:300px;
+}
+
+
 @media ( max-width :800px ) {
     .table-box>table>colgroup>col:first-child {
         width: 100% !important;
@@ -341,8 +346,6 @@ $snappy:  cubic-bezier(0.694,  0.048, 0.335, 1.000);
   }
 }
 
-
-
 ::selection {
   background: $cornflower-blue;
   color: white;
@@ -363,9 +366,7 @@ body {
   height: 100vh;
   background-color: darken($hint, 4%);
   color: $tundora;
-  display: flex;
   justify-content: center;
-  align-items: center;
   transition: background-color 1.25s ease-in-out;
   &.is-focus {
     background-color: $turqoise;
